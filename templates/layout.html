@@ -1,0 +1,132 @@
+<html lang="en">
+<head>
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pure.css') }}">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sidemenu.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+
+    <style>
+      aside {
+        padding: 0.3em 1em;
+        border-radius: 3px;
+      }
+      aside a, aside a:visited {
+        color: rgb(72,18,12);
+      }
+
+      #aside2 {
+        background: #f1d5b9,
+        color: rgb(72,18,12)
+      }
+
+      .button-xsmall {
+        font-size: 70%;
+      }
+
+      .button-small {
+        font-size: 85%;
+      }
+
+      .button-large {
+        font-size: 110%;
+      }
+
+      .button-xlarge {
+        font-size: 125%;
+      }
+      .pure-menu-right-align {
+        right: -80%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="../static/css/layouts/pricing.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    {% block head %} {% endblock %}
+</head>
+
+<body>
+  <div class="pure-menu pure-menu-open pure-menu-horizontal" id='demo-horizontal-menu'>
+    <a href="{{ url_for('index') }}" class="pure-menu-heading">Music Lab</a>
+
+   <!--  <ul id='std-menu-items'>
+        <li><a href="{{ url_for('start_page') }}">About</a></li>
+        <li><a href="{{ url_for('render_explist') }}">Experiments</a></li>
+        <li><a href="{{ url_for('contact') }}">Contact</a></li>
+        <!-- user login state --><!--
+        {% if session.email %}
+        <li>
+          <a id="logout" href="#logout">Logout</a>
+        </li>
+        <li class="pure-menu-disabled">
+          <a href="#">Logged in as {{ session.email }}</a>
+        </li>
+        {% else %}
+        <li>
+          <a id="login" href="#login">Login</a>
+        </li>
+        {% endif %}
+        <li class="pure-form">
+          Language:
+          <select class="pure-input-2-2" id="renarrate">
+            <option value="Hindi">Hindi</option>
+            <option selected value="English">English</option>
+          </select>
+        </li>
+    </ul> -->
+  </div>
+
+  <div>
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <div id="footer" class="small-text">
+
+    {% block footer %} {% endblock %}
+
+    <!--a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+      <img alt="Creative Commons License" style="border-width:0"
+      src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png"/></a-->
+
+      This <span xmlns:dct="http://purl.org/dc/terms/"
+        href="http://purl.org/dc/dcmitype/InteractiveResource"
+        rel="dct:type">work</span> is licensed under a
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+          CC-BY-NC-SA License.
+        </a>
+
+  </div>
+
+
+<script src="{{ url_for('.static', filename='js/jquery.js') }}"></script>
+<script src="https://login.persona.org/include.js"></script>
+<script src="http://yui.yahooapis.com/3.17.2/build/yui/yui-min.js"></script>
+<script src="http://underscorejs.org/underscore-min.js"></script>
+<script src="http://backbonejs.org/backbone-min.js"></script>
+<script src="{{ url_for('.static', filename='js/alipi-widget.js') }}"></script>
+
+<script src="{{ url_for('.static', filename='js/main.js') }}"></script>
+
+<script>
+  /*YUI({
+    classNamePrefix: 'pure'
+  }).use('gallery-sm-menu', function (Y) {
+    var horizontalMenu = new Y.Menu({
+        container         : '#demo-horizontal-menu',
+        sourceNode        : '#std-menu-items',
+        orientation       : 'horizontal',
+        hideOnOutsideClick: false,
+        hideOnClick       : false
+    });
+
+    horizontalMenu.render();
+    horizontalMenu.show();
+
+  });*/
+</script>
+{% block script %} {% endblock %}
+
+</body>
+</html>

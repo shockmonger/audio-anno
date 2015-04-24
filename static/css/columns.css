@@ -1,0 +1,71 @@
+/*// Vars*/
+$sidebar-width: 200px;
+$box-color: Pink;
+
+/*// Cheese starts here*/
+
+
+article,
+section,
+aside {
+  box-sizing: border-box;
+}
+section {
+  border-bottom: 20px solid $box-color;
+  padding: 20px;
+  background: $box-color;
+  overflow: hidden;
+}
+.article-wrap {
+  margin: 0 $sidebar-width 0 0;
+}
+article,
+.sidebar {
+  padding: 15px;
+}
+article {
+  background: LightGoldenRodYellow;
+  border-color: $box-color;
+  border-style: solid;
+  border-width: 0 20px 0 0;
+  float: left;
+  width: 33.33%;
+}
+.sidebar {
+  background: Aquamarine;
+  // Needs to be floated to have height, not absolutely positioned
+  float: right;
+  margin-bottom: -5000px; // 100% column height trick
+  padding-bottom: 5000px; // 100% column height trick
+  width: $sidebar-width;
+}
+
+/* Style Reset ignore*/
+body {
+  padding: 00px;
+}
+h1,
+h2,
+p {
+  margin: 0 0 20px 0;
+}
+h1 {
+  font-size: 25px;
+  a {
+    color: #333;
+  }
+}
+h2 {
+  font-size: 20px;
+}
+ul {
+  padding-left: 20px;
+}
+/*// Clrearfix*/
+.cf {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

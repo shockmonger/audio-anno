@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+{% block head %}
+     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/pure-min.css">
+    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+{#    <link rel="stylesheet" href="{{ url_for = '.static', filename ='pricing.css' }}">#}
+
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+
+
+    <!--JS-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+{% endblock %}
+{% block content %}
+
+
+<div id = "main">
+    <div class = "header">
+<div class="pure-g">
+
+    <div class="pure-u-1"> <h1> Contact Us</h1> </div>
+    <div class="pure-u-1"> <h3> Virtual Labs for Hindustani Music</h3> </div>
+</div>
+
+        <div class="content">
+            <h2 class="content-subhead"></h2>
+            <p>
+                This project is a part of the Virtual Labs project at IIIT Hyderabad.
+            </p>
+        </div>
+
+        <div class="content">
+            <h2 class="content-subhead">About the Project</h2>
+            <p>
+            Please feel free to email us at: tejaswinee.k@research.iiit.ac.in or venkatesh.choppella@iiit.ac.in with suggestions, complaints, or anything you like!
+            </p>
+        </div>
+
+<div class = "content">
+</div>
+
+    <a class="pure-button button-xlarge" href="{{url_for('render_explist')}}">
+      Start doing Experiments!
+    </a>
+    </div>
+</div>
+{% endblock %}

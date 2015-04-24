@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+
+{% block title %} Labs for Hindustani Music - Is this for you? {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block content %}
+
+
+<div id = "main">
+    <div class = "header">
+<div class="pure-g">
+
+    <div class="pure-u-1"> <h1> Virtual Lab for Hindustani Music</h1> </div>
+    <div class="pure-u-1"> <h3> Is this for you?</h3> </div>
+</div>
+
+        <div class="content">
+            <h2 class="content-subhead">Description</h2>
+            <p>
+    A lot of us have been wanting to learn more about the music we would like to hear. For some, it just was that we couldn't spend enough time practising.
+                Some of us didn't have the right instruments, others didn't have teachers that helped describe how to practise and so on.
+
+           </p><p>
+                Result? It's just challenging now to dive into music without knowing notes for sure, and all the nuances.
+                It seems like you could always read a book - but it doesn't have the same give! Examples from books are hard to understand,
+                as we can't hear them.
+
+            </p><p>
+                We are going about solving this problem. With multimedia interfaces to lead your way through musical skills, we present several small exercises
+                and drills for you to exactly start working from whatever your level is to upwards.
+            </p>
+        </div>
+
+        <div class="content">
+            <h2 class="content-subhead">About the Project</h2>
+            <p>
+                This is the first release for VLabs! We have several upcoming experiments and features
+                Virtual Labs for music aims to serve the needs for experimenting with Indian music. So far we are focusing on North Indian/ Hindustani Music.
+                This lab will have experiments, and repositories in which musical material will be accessible to all to read.
+                This is the first release of the lab. If you use this software, please feel free to report back with <a href="{{ url_for('contact') }}">feedback</a> so we can improve the product!
+            </p>
+        </div>
+
+<div class = "content">
+
+        </form>
+
+</div>
+
+    <a class="pure-button button-secondary2" href="{{url_for('render_explist')}}">
+      Start doing Experiments!
+    </a>
+    </div>
+</div>
+{% endblock %}

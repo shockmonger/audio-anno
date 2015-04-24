@@ -1,0 +1,12 @@
+.left-pane{
+    padding: 0 0 10px 0;
+    background: #ffffff;
+}
+
+td.left-pane{
+    width: 42%;
+}
+.right-pane, .left-pane{
+    overflow-y: auto;
+    overflow-x: hidden;
+}

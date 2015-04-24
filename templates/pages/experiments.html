@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block title %} Labs for Hindustani Music - Experiments {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+    <!-- fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Oswald:400,300' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block content %}
+
+<div id="main">
+<div class="header">
+    <h1>Experiments</h1>
+</div>
+
+    <div class="content">
+        <h2 class="content-subhead">Start with these experiments</h2>
+        <p></p>
+        <ol>
+            <li><a href="{{ url_for('render_experiment', num=1) }}"> Pitch Difference</a></li>
+            <p>Can you tell if two musical tones are the same or different?</p>
+            <li><a href="{{ url_for('render_experiment', num=2) }}"> Pitch Direction</a></li>
+            <p>Can you tell which of the two musical tones is higher?</p>
+            <li><a href="{{ url_for('render_experiment', num=3) }}"> Explore sargam</a></li>
+            <p>Explore notation, sargam, play music!</p>
+            <li><a href="{{ url_for('render_experiment', num=4) }}"> Explore Thaats</a></li>
+            <p>Listen to the 10 Thaats</p>
+            <li><a href="{{ url_for('render_experiment', num=5) }}"> Name Svar</a></li>
+            <p>Identify names of svar</p>
+            <li><a href="{{ url_for('render_experiment', num=6) }}"> Name String of Svar</a></li>
+            <p>Name svars in a row</p>
+            <li><a href="{{ url_for('render_experiment', num=7) }}"> Trace a melody</a></li>
+            <p>Trace a melodic phrase</p>
+            <li><a href="{{ url_for('render_ragadb') }}"> Raag Graph Interactive Visualization</a></li>
+            <p>Interact with raag as a graph</p>
+	    <li><a href="{{ url_for('render_experiment', num=11)}}"> Raga Quiz</a></li>
+	    <p>How much do you know about ragas?</p>
+	    <li><a href="{{ url_for('render_experiment', num=12)}}"> Taal Quiz</a></li>
+	    <p>Explore your concepts on taal</p>
+	    <li><a href="{{ url_for('render_experiment', num=13)}}"> Instrument Quiz</a></li>
+	    <p>Identify the instrument</p>
+	    <li><a href="{{ url_for('render_experiment', num=14)}}"> Lay Quiz</a></li>
+	    <p>Can you find the number of matras for dugun, tigun, etc?</p>
+        </ol>
+    </div>
+
+    <div class="content">
+        <h2 class="content-subhead">Upcoming!</h2>
+        <p>
+Taal is as important as notes in music. This section will teach you to explore and listen to bols, matras, khali and bhari and other concepts.        </p>
+        <ul>
+            <!--li><a href="{{ url_for('render_experiment', num=8)}}">Tune a tanpura</a></li-->
+            <li>Tune a tanpura</li>
+            <!--li><a href="{{ url_for('render_experiment', num=9)}}">Khaali-Taali Identification</a></li-->
+            <li>Khaali-Taali Identification</li>
+            <!--li><a href="{{ url_for('render_experiment', num=10)}}">Listen to Tabla bols</a></li-->
+            <li>Listen to Tabla bols</li>
+            <li>Creating Simple Layakari</li>
+            <li>Explore Thaats</li>
+            <li>Raga-Net Graph Visualization</li>
+            <li>Identify Instrument from Sound</li>
+
+        </ul>
+    </div>
+</div>
+</div>
+
+{% endblock %}

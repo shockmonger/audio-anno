@@ -1,0 +1,9 @@
+.button-xxlarge {
+  font-size: 250%;
+  margin: 10px;
+}
+.pure-alert-error {
+  padding: 1em;
+  background: #d13c38;
+  color: #fff;
+}

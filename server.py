@@ -44,6 +44,18 @@ def index():
                            config=config)
 
 
+@app.route('/pages')
+def start_page():
+    return render_template('/pages/startpage.html')
+
+@app.route('/experiments')
+def render_explist():
+    return render_template('pages/experiments.html')
+
+@app.route('/pages/contact')
+def contact():
+    return render_template('pages/contact/contact.html')
+
 @app.route("/downloadMusic")
 def downloadMusic():
 
@@ -125,7 +137,16 @@ def signOut():
 
     return redirect(url_for('index'))
 
+@app.errorhandler(404)
+def render_404(err):
+    return render_template('errors/404.html', error=err.description)
+
+
+@app.errorhandler(400)
+def bad_request(err):
+    return make_response(jsonify({'error': err.description}), 400)
+
 if __name__ == "__main__":
 
     app.debug = True
-    app.run(debug=True)
+    app.run(host='0.0.0.0',  port=5003)

@@ -1,52 +1,56 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>wavesurfer.js | Annotation tool</title>
+{% extends "layout.html" %}
 
-        <link href="data:image/gif;" rel="icon" type="image/x-icon" />
+{% block title %} Annotation Tool {% endblock %}
 
-        <!-- jQuery -->
-        <script src="static/js/jquery-2.1.3.min.js"></script>
-
-        <!-- Bootstrap -->
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+{% block head %}
+    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="static/css/searchbox.css"/>
+        <link rel="stylesheet" href="static/css/pure-extras.css" />
 
         <link rel="stylesheet" href="static/css/style.css" />
         <link rel="stylesheet" href="static/css/ribbon.css" />
         <link rel="screenshot" itemprop="screenshot" href="http://katspaugh.github.io/wavesurfer.js/example/screenshot.png" />
 
-        <!-- wavesurfer.js -->
-        <script src="static/js/src/wavesurfer.js"></script>
-        <script src="static/js/src/webaudio.js"></script>
-        <script src="static/js/src/audioelement.js"></script>
-        <script src="static/js/src/drawer.js"></script>
-        <script src="static/js/src/drawer.canvas.js"></script>
+          
 
-        <!-- plugins -->
-        <script src="static/js/plugin/wavesurfer.timeline.js"></script>
-        <script src="static/js/plugin/wavesurfer.regions.js"></script>
-        <script src="static/js/plugin/wavesurfer.minimap.js"></script>
+{% endblock %}
 
-        <!-- App -->
-        <script src="static/js/trivia.js"></script>
-        <script src="static/js/app.js"></script>
-    </head>
+{% block content %}
 
-    <body itemscope itemtype="http://schema.org/WebApplication">
-        <div class="container">
+<div id="main">
+  <div class="header">
+    <div class="pure-g">
+      <div class="pure-u-1"> <h1> Annotation Tool</h1> </div>
+      <!-- <div class="pure-u-1"> <h3>  </h3> </div> -->
+    </div>
+  </div>
+</div>
+
+
+
+ <div class="container">
             
 
             <div style=" position:relative;" id="demo">
-                <p> http://www-mmsp.ece.mcgill.ca/documents/audioformats/wave/Samples/AFsp/M1F1-Alaw-AFsp.wav
-                
-                <div id="signedInUser" style=" position:relative;transition:.5s ease; top: 10%; left :90%;">
-                    <span id="signinview"> Sign In </span>
-
-                    <div class="row">
-                        <button class="btn btn-success" id="sign-in">sign-in</button>
-                        <button class="btn btn-success" id="sign-out">sign-out</button>
+                <aside style="background: #fff1ea; color:#111111">
+                <p> This tool will help you annotate sound files hosted anywhere on the web with the help of the Music Lab Ontologies. These ontologies contain databases of raga, taal and form. You can pick any of these parameters to annotate. 
+                <br><br>
+                Just enter the url of the sound clip. Wait for it to load. Once you can see it, select any region that you want to annotate. If it's a particular note, you could select an individual note. If you want to annotate the whole clip, that too is possible. Select what you want to annotate and click Save.
+                <br><br>
+                Clicking save will save your annotations for the time being on the browser. This way you can create multiple annotations for the same file. Once you're done, click Publish to post these annotations!
+                    <br><br>
+                    http://www-mmsp.ece.mcgill.ca/documents/audioformats/wave/Samples/AFsp/M1F1-Alaw-AFsp.wav
+                </aside>
+                    <div class="container">           
+                    <div class = "pure-g">
+                    <div class = "pure-u-2-3">
+                    </div>
+                    <div class = "pure-u-1-3">
+                               
+                        <br>
+                      <button class="pure-button centered option button-secondary" id="sign-in">Sign In</button>
+                        <button class="pure-button centered option button-secondary" id="sign-out">Sign Out</button>
                     </div>
 
                 </div>
@@ -60,10 +64,17 @@
                                 <input type="text" class="search-query form-control" id="file-input" placeholder="Search" />
                             </div>
                         </div>
-
-                        <button class="btn btn-success" id="load">Load</button>
+                        <br>
+                        <button class="pure-button centered option button-secondary" id="load">Load</button>
                     </div>
 
+                    <div class = "pure-alert-warning" id = "file-alert">
+                        Sorry! Couldn't download file, please try again!
+                    </div>
+
+                    <div class = "pure-alert-warning" id = "swt-alert">
+                        Sorry we are unable to post your Swt on the SwtStore, please try again!                  
+                    </div>
                     <!--div clas"row">
                         Load a csv file: 
                         <input id="nodes-csv-file-input" type="file">
@@ -79,16 +90,38 @@
                         <!-- Here be waveform -->
                     </div>
 
-                    <div class="row" style="margin: 30px 0">
-                        <div class="col-sm-8">
-                            <p>
+                    <div class="pure-g">
+                      <div class = "pure-u-2-3">
+                         <p>
                                 Click on a region to enter an annotation.<br />
                                 Shift-click plays a region in a loop.
                             </p>
-                        </div>
+                      </div>
+                      <div class ="pure-u-1-3">
+                         <button class="pure-button centered option button-secondary" data-action="play">
+                                <span id="play">
+                                    <i class="glyphicon glyphicon-play"></i>
+                                    Play
+                                </span>
 
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary btn-block" data-action="play">
+                                <span id="pause" style="display: none">
+                                    <i class="glyphicon glyphicon-pause"></i>
+                                    Pause
+                                </span>
+                            </button>
+
+                            <button class="pure-button centered option button-secondary" data-action="publish" title="Publish annotations to JSON" id="Publish">
+                                <i class="glyphicon glyphicon-file"></i>
+                                Publish
+                            </button>
+                      </div>
+                    </div>
+
+
+
+                 <!--    <div class="row" style="margin: 30px 0">
+                    <div class="col-sm-2" style = "position:relative; left:80%;">
+                            <button class="pure-button centered option button-secondary" data-action="play">
                                 <span id="play">
                                     <i class="glyphicon glyphicon-play"></i>
                                     Play
@@ -101,18 +134,30 @@
                             </button>
                         </div>
 
-                        <div class="col-sm-2">
-                            <button class="btn btn-info btn-block" data-action="publish" title="Publish annotations to JSON" id="Publish">
+
+                        <div class="col-sm-2" style = "position:relative; left:40%;">
+                            <button class="pure-button centered option button-secondary" data-action="publish" title="Publish annotations to JSON" id="Publish">
                                 <i class="glyphicon glyphicon-file"></i>
                                 Publish
                             </button>
                         </div>
                     </div>
+
+                        <div class="col-sm-8" style= "position:relative; left: 90%;">
+                            <p>
+                                Click on a region to enter an annotation.<br />
+                                Shift-click plays a region in a loop.
+                            </p>
+                        </div> 
+                      
                 </div>
                     
-            </div>
-
-           <div style=" position:relative;">
+            </div>-->
+            <div class = "container">
+              <div class = "pure-g">
+              <div class = "pure-u-1-3">
+              </div>
+              <div class = "pure-u-1-3">
                  <form role="form" name="edit" style="opacity: 0; transition: opacity 300ms linear; margin: 30px 0;">
                     <div class="form-group">
                         <label for="start">Start</label>
@@ -123,44 +168,84 @@
                         <label for="end">End</label>
                         <input class="form-control" id="end" name="end" />
                     </div>
-
+                   
                     <div class="form-group">
-                        <label for="note">Note</label>
-                        <textarea id="note" class="form-control" rows="3" name="note"></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="note1">Comment</label>
-                        <textarea id="comment" class="form-control" rows="3" name="comment"></textarea>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="songgraph">Song-graph</label>
+                        <label for="songgraph">Type of Annotation</label>
                         <select id="songgraph" class="form-control" rows="3" name="songgraph" onchange="change_type()"></select>
                     </div>
                 
 
                     <div class="form-group">
-                        <label for="songtype">Song-type</label>
+                        <label for="songtype">Category</label>
                         <select id="songtype" class="form-control" rows="3" name="songtype" onchange="change_label()"></select>
                     </div>
 
                     <div class="form-group">
-                        <label for="songlabel">Song-label</label>
+                        <label for="songlabel">Detail</label>
                         <select id="songlabel" class="form-control" rows="3" name="songlabel"></select>
                     </div>
 
-                    <button type="submit" class="btn btn-success btn-block">Save</button>
-                   
-                    <button type="button" class="btn btn-danger btn-block" data-action="delete-region">Delete</button>
-                </form>
-           </div>
+                     <div class="form-group">
+                        <label for="note">Note</label>
+                        <textarea id="note" class="form-control" rows="3" name="note"></textarea>
+                    </div>
 
-            
+
+                    <button type="submit" class="pure-button centered option button-secondary">Save</button>
+                   
+                    <button type="button" class="pure-button option button-secondary" data-action="delete-region">Delete</button>
+                </form>
+              </div>
+              <div class = "pure-u-1-3">
+              </div>
+           </div>
+            </div>
         </div>
 
-    </body>
+
+
+{% endblock %}
+
+{% block script %}
+    
+        <script src="static/js/jquery-2.1.3.min.js">        </script>
+
+        <script>
+                $("#file-alert").hide();
+                $("#swt-alert").hide();
+
+        </script>
+    <!-- wavesurfer.js -->
+        <script src="static/js/src/wavesurfer.js"></script>
+        <script src="static/js/src/webaudio.js"></script>
+        <script src="static/js/src/audioelement.js"></script>
+        <script src="static/js/src/drawer.js"></script>
+        <script src="static/js/src/drawer.canvas.js"></script>
+
+        <!-- plugins -->
+        <script src="static/js/plugin/wavesurfer.timeline.js"></script>
+        <script src="static/js/plugin/wavesurfer.regions.js"></script>
+        <script src="static/js/plugin/wavesurfer.minimap.js"></script>
+
+        <!-- App -->
+        <script src="static/js/trivia.js"></script>
+        <script src="static/js/app.js"></script>
+
+        <script>
+            //$("#file-alert").hide();
+        
+            function filealert() {
+            $("#file-alert").show();
+            setTimeout(function() { $("#file-alert").hide(); }, 4000);
+            }
+            function swtalert() {
+            $("#swt-alert").show();
+            setTimeout(function() { $("#swt-alert").hide(); }, 4000);
+            }
+
+        </script>
+
+
 
     <script>
         var swtstoreURL = function() { return '{{ config.swtstoreURL }}'; }
@@ -178,4 +263,5 @@
         var oauth_redirect_uri = '{{ config.redirect_uri }}';
     </script>
 
-</html>
+{% endblock %}
+
