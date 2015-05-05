@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     waversurfer_init_function();
     wavesurfer_setting_fucntion();
-    ontologies_data_loading();
+    anntologies_data_loading();
     authenticate_user();
     handle_auth();
     handle_signout();
@@ -56,10 +56,10 @@ function make_and_post_swt(){
         success : function(data){
             localStorage.swt="";
             ////console.log(data);
-            successalert();
+            alert('Swt successfully posted, Congratualtions!');
         },
         error : function(){
-            swetalert();
+            swtalert();
         }
     });
 }
@@ -236,13 +236,13 @@ function load_music_file(url){
             //console.log(data);
         },
         error: function(errorThrown){
-          filealert();
+           filealert();
         }
     });
 
 }
 
-function ontologies_data_loading(){
+function anntologies_data_loading(){
     /*
     var generateFormButton = document.querySelector('#genrateForm');
         generateFormButton.onclick = function(event){
@@ -259,6 +259,7 @@ function ontologies_data_loading(){
             csv_dict['nodes'] = nodes_csv_dict;
             //addGraph(csv_dict);
             ////console.log(nodes_csv_dict);
+
             var edges_csv_file = document.getElementById('edges-csv-file-input');
             var edges_file = edges_csv_file.files[0];
             var edges_reader = new FileReader();
@@ -272,6 +273,7 @@ function ontologies_data_loading(){
             edges_reader.readAsBinaryString(edges_file);
         }
         nodes_reader.readAsBinaryString(nodes_file);
+
         //addType(nodes_csv_dict);
         //localStorage.setItem("nodes_csv", JSON.stringify(nodes_csv_dict));
 
@@ -280,11 +282,13 @@ function ontologies_data_loading(){
         localStorage.setItem("csv", JSON.stringify(csv_dict))
         addGraph(csv_dict);
         //console.log(csv_dict);
+
     };
+
     */
 
-    raag_csv_dict=[];
-    taal_csv_dict=[];
+    nodes_csv_dict=[];
+    edges_csv_dict=[];
     csv_dict=[];
     var pattern = /[']+/g;
     $.ajax({
@@ -293,9 +297,9 @@ function ontologies_data_loading(){
         type : "GET",
         success : function(data){
             ////console.log(data);
-            raag_csv = data.replace(pattern, "");
-            raag_csv_dict = generateForm(raag_csv);
-            csv_dict['raag'] = raag_csv_dict;
+            nodes_csv = data.replace(pattern, "");
+            nodes_csv_dict = generateForm(nodes_csv);
+            csv_dict['raag'] = nodes_csv_dict;
 
             $.ajax({
                 url : "static/data/csv/taal.csv",
@@ -303,13 +307,13 @@ function ontologies_data_loading(){
                 type : "GET",
                 success : function(data){
                     ////console.log(data);
-                    taal_csv = data.replace(pattern, "");;
-                    taal_csv_dict = generateForm(taal_csv);
-                    csv_dict['taal'] = taal_csv_dict;
+                    edges_csv = data.replace(pattern, "");;
+                    edges_csv_dict = generateForm(edges_csv);
+                    csv_dict['taal'] = edges_csv_dict;
 
                     localStorage.setItem("csv", JSON.stringify(csv_dict))
                     addGraph(csv_dict);
-                    console.log(csv_dict);
+                    //console.log(csv_dict);
                 }
             });
         }
@@ -351,7 +355,6 @@ function generateForm(csv_data){
            lines[temp_key] = tarr;
            temp_key = data[1];
            tarr = [];
-           tarr.push(data[2]);
         }
 
     }
@@ -371,18 +374,8 @@ function addGraph(options) {
     var select = document.querySelector('#'+selectId);
 
     while(select.childElementCount>0){
-        select.removeChild(select.childNodes[0])
-    }
-
-    /*
-    //changes made for default value while selecting antology
-    var default_value = "select"
-    var node = document.createElement("option");
-    node.id = default_value;
-    node.setAttribute('value', default_value);
-    node.textContent = default_value;
-    select.appendChild(node);
-    */
+            select.removeChild(select.childNodes[0])
+        }
 
     for (var val in options) {
 
@@ -408,14 +401,6 @@ function addType(options) {
     while(select.childElementCount>0){
             select.removeChild(select.childNodes[0])
         }
-
-    //changes made for default value while selecting antology
-    var default_value = "select"
-    var node = document.createElement("option");
-    node.id = default_value;
-    node.setAttribute('value', default_value);
-    node.textContent = default_value;
-    select.appendChild(node);
 
     for (var val in options) {
 
@@ -572,7 +557,6 @@ function editAnnotation (region) {
     form.elements.start.value = Math.round(region.start * 10) / 10,
     form.elements.end.value = Math.round(region.end * 10) / 10;
     form.elements.note.value = region.data.note || '';
-    form.elements.comment.value = region.data.comment || '';
     form.elements.songgraph.value = region.data.songgraph || '' ;
     form.elements.songtype.value = region.data.songtype || '' ;
     form.elements.songlabel.value = region.data.songlabel || '';
@@ -584,7 +568,6 @@ function editAnnotation (region) {
             end: form.elements.end.value,
             data: {
                 note: form.elements.note.value,
-                comment: form.elements.comment.value,
                 songgraph: form.elements.songgraph.value,
                 songtype: form.elements.songtype.value,
                 songlabel: form.elements.songlabel.value
