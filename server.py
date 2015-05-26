@@ -122,8 +122,8 @@ def downloadMusic():
 	print e
         abort(500)
 
-    return make_response(music_file_path, 200)
-
+        music_file_url = url_for('static', filename='music_files/' + music_file_name)
+    return make_response(music_file_url, 200)
 
 @app.route("/authenticate")
 def authenticateWithOAuth():
