@@ -11,6 +11,16 @@ var current_user
 document.addEventListener('DOMContentLoaded', function () {
     localStorage.clear();
 
+    // default ajax options for cross-origin requests
+     $.ajaxSetup({
+      xhrFields: {
+        // we need this to send cookies to cross-domain requests
+        withCredentials: true
+      },
+      //some browsers won't make cross-domain ajax until it is explicitly set
+      crossDomain: true
+    });
+
     waversurfer_init_function();
     wavesurfer_setting_fucntion();
     ontologies_data_loading();
@@ -73,7 +83,7 @@ function userLoggedIn(username) {
 
 function userLoggedOut(){
     $.ajax({
-        url : "signOut",
+        url : signoutURL(), //"signOut",
         data : {"user" : current_user},
         type : "GET",
         success : function(data){
@@ -227,7 +237,7 @@ function wavesurfer_setting_fucntion(){
 function load_music_file(url){
 
     $.ajax({
-        url : "downloadMusic",
+        url : downloadURL(), //"downloadMusic",
         data : {"url" : url},
         type : "GET",
         success : function(data){
@@ -572,7 +582,7 @@ function editAnnotation (region) {
     form.elements.start.value = Math.round(region.start * 10) / 10,
     form.elements.end.value = Math.round(region.end * 10) / 10;
     form.elements.note.value = region.data.note || '';
-    //form.elements.comment.value = region.data.comment || '';
+    form.elements.comment.value = region.data.comment || '';
     form.elements.songgraph.value = region.data.songgraph || '' ;
     form.elements.songtype.value = region.data.songtype || '' ;
     form.elements.songlabel.value = region.data.songlabel || '';
@@ -584,7 +594,7 @@ function editAnnotation (region) {
             end: form.elements.end.value,
             data: {
                 note: form.elements.note.value,
-                //comment: form.elements.comment.value,
+                comment: form.elements.comment.value,
                 songgraph: form.elements.songgraph.value,
                 songtype: form.elements.songtype.value,
                 songlabel: form.elements.songlabel.value

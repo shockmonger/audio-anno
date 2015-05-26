@@ -3,17 +3,20 @@
 {% block title %} Annotation Tool {% endblock %}
 
 {% block head %}
-    <link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="static/css/searchbox.css"/>
-        <link rel="stylesheet" href="static/css/pure-extras.css" />
+	<link rel="stylesheet" href="http://purecss.io/css/layouts/side-menu.css">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/searchbox.css') }}"/>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/pure-extras.css') }}" />
 
-        <link rel="stylesheet" href="static/css/style.css" />
-        <link rel="stylesheet" href="static/css/ribbon.css" />
-        <link rel="screenshot" itemprop="screenshot" href="http://katspaugh.github.io/wavesurfer.js/example/screenshot.png" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/ribbon.css') }}" />
+	<link rel="screenshot" itemprop="screenshot" href="http://katspaugh.github.io/wavesurfer.js/example/screenshot.png" />
 
-
-
+	<style type="text/css">
+	  #file-alert, #swt-alert, #successalert {
+	    display: none;
+	  }
+	</style>
 {% endblock %}
 
 {% block content %}
@@ -31,7 +34,6 @@
 
  <div class="container">
 
-
             <div style=" position:relative;" id="demo">
                 <aside style="background: #fff1ea; color:#111111">
                 <p> This tool will help you annotate sound files hosted anywhere on the web with the help of the Music Lab Ontologies. These ontologies contain databases of raga, taal and form. You can pick any of these parameters to annotate.
@@ -39,8 +41,8 @@
                 Just enter the url of the sound clip. Wait for it to load. Once you can see it, select any region that you want to annotate. If it's a particular note, you could select an individual note. If you want to annotate the whole clip, that too is possible. Select what you want to annotate and click Save.
                 <br><br>
                 Clicking save will save your annotations for the time being on the browser. This way you can create multiple annotations for the same file. Once you're done, click Publish to post these annotations!
-                <br>
-                Right now, we only support .wav file formats! support for .mp3 and .ogg will be added soon!
+                    <br><br>
+		Currently, we only support .wav files. .mp3 and .ogg would be added soon!
                 </aside>
                     <div class="container">
                     <div class = "pure-g">
@@ -213,33 +215,24 @@
 
 {% block script %}
 
-        <script src="static/js/jquery-2.1.3.min.js">        </script>
-
-        <script>
-                $("#file-alert").hide();
-                $("#swt-alert").hide();
-                $("#successalert").hide();
-
-        </script>
+    <script src="{{ url_for('static', filename='js/jquery-2.1.3.min.js') }}"></script>
     <!-- wavesurfer.js -->
-        <script src="static/js/src/wavesurfer.js"></script>
-        <script src="static/js/src/webaudio.js"></script>
-        <script src="static/js/src/audioelement.js"></script>
-        <script src="static/js/src/drawer.js"></script>
-        <script src="static/js/src/drawer.canvas.js"></script>
+        <script src="{{ url_for('static', filename='js/src/wavesurfer.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/src/webaudio.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/src/audioelement.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/src/drawer.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/src/drawer.canvas.js') }}"></script>
 
         <!-- plugins -->
-        <script src="static/js/plugin/wavesurfer.timeline.js"></script>
-        <script src="static/js/plugin/wavesurfer.regions.js"></script>
-        <script src="static/js/plugin/wavesurfer.minimap.js"></script>
+        <script src="{{ url_for('static', filename='js/plugin/wavesurfer.timeline.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/plugin/wavesurfer.regions.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/plugin/wavesurfer.minimap.js') }}"></script>
 
         <!-- App -->
-        <script src="static/js/trivia.js"></script>
-        <script src="static/js/app.js"></script>
+        <script src="{{ url_for('static', filename='js/trivia.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 
         <script>
-            //$("#file-alert").hide();
-
             function filealert() {
             $("#file-alert").show();
             setTimeout(function() { $("#file-alert").hide(); }, 4000);
@@ -254,8 +247,6 @@
 
         </script>
 
-
-
     <script>
         var swtstoreURL = function() { return '{{ config.swtstoreURL }}'; }
         var endpoints = {
@@ -266,6 +257,8 @@
             'login': '/auth/login',
             'logout': '/auth/logout'
         };
+	var signoutURL = function() { return '{{ url_for("signOut") }}'; };
+	var downloadURL = function() { return '{{ url_for("downloadMusic") }}'; };
         var access_token = '{{ access_token }}';
         var refresh_token = '{{ refresh_token }}';
         var app_id = '{{ config.app_id }}';
