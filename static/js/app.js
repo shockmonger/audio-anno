@@ -582,7 +582,7 @@ function editAnnotation (region) {
     form.elements.start.value = Math.round(region.start * 10) / 10,
     form.elements.end.value = Math.round(region.end * 10) / 10;
     form.elements.note.value = region.data.note || '';
-    form.elements.comment.value = region.data.comment || '';
+    //form.elements.comment.value = region.data.comment || '';
     form.elements.songgraph.value = region.data.songgraph || '' ;
     form.elements.songtype.value = region.data.songtype || '' ;
     form.elements.songlabel.value = region.data.songlabel || '';
@@ -594,7 +594,7 @@ function editAnnotation (region) {
             end: form.elements.end.value,
             data: {
                 note: form.elements.note.value,
-                comment: form.elements.comment.value,
+                //comment: form.elements.comment.value,
                 songgraph: form.elements.songgraph.value,
                 songtype: form.elements.songtype.value,
                 songlabel: form.elements.songlabel.value
