@@ -50,8 +50,8 @@ def index():
 
     if 'auth_tok' in session:
         app.logger.debug("User is logged in : %s" % session['auth_tok'])
-	logging.debug("User is logged in")
-	current_app.logger.debug("User is logged in!")
+        logging.debug("User is logged in")
+        current_app.logger.debug("User is logged in!")
         auth_tok = session['auth_tok']
 
         # check if it has expired
@@ -102,8 +102,9 @@ def downloadMusic():
     music_file_parse_url = url.split("/")
     music_file_name = music_file_parse_url[-1]
     app.logger.debug("Music file name: %s" % music_file_name)
-    music_file_path = os.path.join(os.path.dirname(__file__), 'static/music_files/',
-				  music_file_name)
+    music_file_path = os.path.join(os.path.dirname(__file__),
+                                   'static/music_files/',
+                                   music_file_name)
     app.logger.debug("Music file path: %s" % music_file_path)
     try:
         response = requests.get(url, proxies=config.PROXIES)
@@ -111,19 +112,21 @@ def downloadMusic():
     except Exception, e:
         app.logger.debug('Error downloading the music file: %s' % e)
         app.logger.debug(e)
-	print 'here'
+        print 'here'
         abort(500)
 
     try:
         open(music_file_path, 'wb').write(data)
     except Exception, e:
         app.logger.debug('error writing file')
-	print 'there'
-	print e
+        print 'there'
+        print e
         abort(500)
 
-        music_file_url = url_for('static', filename='music_files/' + music_file_name)
+    music_file_url = url_for('static', filename='music_files/' +
+                             music_file_name)
     return make_response(music_file_url, 200)
+
 
 @app.route("/authenticate")
 def authenticateWithOAuth():
